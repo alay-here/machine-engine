@@ -23,11 +23,23 @@ st.title("⚙️ Inside the Machine")
 # --- MOBILE UI TABS ---
 tab1, tab2, tab3 = st.tabs(["💡 Topic", "📝 Script", "🎬 Create"])
 
+# with tab1:
+#     if st.button("Find New Topic"):
+#         response = model.generate_content("Suggest one specific vintage or modern machine to explain. Just the name.")
+#         st.session_state.topic = response.text
+#         st.success(f"Today's Topic: {st.session_state.topic}")
+
 with tab1:
     if st.button("Find New Topic"):
-        response = model.generate_content("Suggest one specific vintage or modern machine to explain. Just the name.")
-        st.session_state.topic = response.text
-        st.success(f"Today's Topic: {st.session_state.topic}")
+        try:
+            # Use the newer, faster model
+            model = genai.GenerativeModel('gemini-1.5-flash') 
+            response = model.generate_content("Suggest one specific vintage or modern machine to explain. Just the name.")
+            st.session_state.topic = response.text
+            st.success(f"Today's Topic: {st.session_state.topic}")
+        except Exception as e:
+            st.error(f"AI Error: {e}")
+            st.info("Check if your GEMINI_KEY is correctly pasted in Streamlit Secrets.")
 
 with tab2:
     if 'topic' in st.session_state:
