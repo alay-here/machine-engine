@@ -15,7 +15,7 @@ from moviepy.editor import ImageClip, AudioFileClip
 
 # Setup Google Gemini (The Free Brain)
 genai.configure(api_key=st.secrets["GEMINI_KEY"])
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 st.set_page_config(page_title="Machine Engine", layout="centered")
 st.title("⚙️ Inside the Machine")
