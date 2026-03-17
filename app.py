@@ -35,7 +35,13 @@ with tab1:
             # We are using 2.0-flash as it appeared in your list
             model = genai.GenerativeModel('gemini-2.0-flash') 
             
-            response = model.generate_content("Suggest one specific vintage or modern machine to explain. Just the name.")
+            # response = model.generate_content("Suggest one specific vintage or modern machine to explain. Just the name.")
+            response = model.generate_content(
+                "Act as an engineering historian. Suggest one very specific machine, "
+                "gadget, or vintage invention that has interesting internal parts "
+                "(like a mechanical typewriter, a 1950s jukebox, or a specific jet engine). "
+                "Just give the name of the machine, nothing else."
+            )
             st.session_state.topic = response.text
             st.success(f"Today's Topic: {st.session_state.topic}")
             
