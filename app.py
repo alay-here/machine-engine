@@ -1,8 +1,17 @@
+# import streamlit as st
+# import google.generativeai as genai
+# import asyncio
+# import edge_tts
+# from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips
+
 import streamlit as st
 import google.generativeai as genai
 import asyncio
 import edge_tts
-from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips
+import os
+
+# Updated Import for MoviePy 1.0.3
+from moviepy.editor import ImageClip, AudioFileClip
 
 # Setup Google Gemini (The Free Brain)
 genai.configure(api_key=st.secrets["GEMINI_KEY"])
