@@ -32,14 +32,22 @@ tab1, tab2, tab3 = st.tabs(["💡 Topic", "📝 Script", "🎬 Create"])
 with tab1:
     if st.button("Find New Topic"):
         try:
-            # Use the newer, faster model
-            model = genai.GenerativeModel('gemini-1.5-flash') 
+            # Try the most stable model name
+            model_name = 'gemini-1.5-flash'
+            model = genai.GenerativeModel(model_name)
+            
             response = model.generate_content("Suggest one specific vintage or modern machine to explain. Just the name.")
             st.session_state.topic = response.text
             st.success(f"Today's Topic: {st.session_state.topic}")
+            
         except Exception as e:
-            st.error(f"AI Error: {e}")
-            st.info("Check if your GEMINI_KEY is correctly pasted in Streamlit Secrets.")
+            st.error(f"Error: {e}")
+            
+            # DEBUG MODE: This will show you exactly what models your key can see
+            st.info("Searching for available models for your account...")
+            available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+            st.write("Try one of these model names instead:")
+            st.json(available_models)
 
 with tab2:
     if 'topic' in st.session_state:
